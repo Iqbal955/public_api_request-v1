@@ -4,18 +4,22 @@ const search = document.querySelector("search-container");
 const modal = document.querySelector("div .modal-info-container");
 const modalImg = document.querySelector(".modal-img");
 const modalcontainer = document.getElementById("modal-container");
+const array = [];
 
 //############ FETCH ####################
 
 
+fetch("https://randomuser.me/api/?results=12")
+    .then(response => response.json())
+    .then(data => array.push(data))
+    .then(arr => arr.results.map(person => {
+        console.log(person);
 
+    }))
 
-for (var i = 0; i < 12; i++) {
+       
+   
 
-    fetch("https://randomuser.me/api/")
-        .then(response => response.json())
-        .then(data => cards(data.results))
-}
 
 
 
@@ -65,7 +69,7 @@ function cards(data) {
 
 
 
-
+   // .then(data => cards(data.results))
 
 
 
