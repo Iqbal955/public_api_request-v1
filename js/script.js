@@ -8,6 +8,8 @@ const modalcontainer = document.getElementById("modal-container");
 //############ FETCH ####################
 
 
+
+
 for (var i = 0; i < 12; i++) {
 
     fetch("https://randomuser.me/api/")
