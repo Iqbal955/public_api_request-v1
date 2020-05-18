@@ -11,11 +11,44 @@ const array = [];
 
 fetch("https://randomuser.me/api/?results=12")
     .then(response => response.json())
-    .then(data => array.push(data))
-    .then(arr => arr.results.map(person => {
-        console.log(person);
+    .then(eachProfile)
+    //.then(data => array.push(data))
+   // .then(arr => array.map(person => {
 
-    }))
+    //    cards(person)
+    //    console.log(person);
+
+       
+  //  }))
+
+
+
+//}
+
+function getJSON(url) {
+    fetch("https://randomuser.me/api/?results=12")
+        .then(response => response.json())
+        .then(eachProfile(response))
+
+}
+function eachProfile(json) {
+
+    const profiles = array.push(json);
+    array.map(person => {
+
+
+    return cards(person);
+
+    });
+
+    return profiles;
+
+}
+
+   // .then(array => array.results.map(person => {
+    //    console.log(person);
+        //
+//array.results.map(person => console.log(person));
 
        
    
@@ -29,10 +62,8 @@ fetch("https://randomuser.me/api/?results=12")
 function cards(data) {
 
 
-    for (var i = 0; i < data.length; i++) {
-
-        console.log(data[i].picture.large);
-
+    //onsole.log(data.length);
+   // console.log(data.results[0].gender);
         const card = document.createElement("div");
               card.setAttribute("class", "card");
             document.body.appendChild(card);
@@ -45,7 +76,7 @@ function cards(data) {
         
         const img = document.createElement("img");
               img.setAttribute("class", "card-img");
-              img.setAttribute("src", `${data[i].picture.large}`);
+              img.setAttribute("src", `${data.results[0].picture.large}`);
               img.setAttribute("alt", "Profile picture");
               cardcontainer.appendChild(img);
 
@@ -54,17 +85,13 @@ function cards(data) {
         const cardinfocontainer = document.createElement("div")
               cardinfocontainer.setAttribute("class", "card-info-container")
               cardinfocontainer.innerHTML = 
-                  ` <h3 id="name" class= "card-name cap">${data[i].name.first} ${data[i].name.last}</h3>
-                    <p class= "card-text">${data[i].email}</p>
-                    <p class="card-text cap">${data[i].location.city} ${data[i].location.state}</p> `
+                  ` <h3 id="name" class= "card-name cap">${data.results[0].name.first} ${data.results[0].name.last}</h3>
+                    <p class= "card-text">${data.results[0].email}</p>
+                    <p class="card-text cap">${data.results[0].location.city} ${data.results[0].location.state}</p> `
               card.appendChild(cardinfocontainer);
 
 
-    }
 }
-
-
-
 
 
 
