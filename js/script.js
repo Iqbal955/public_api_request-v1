@@ -12,113 +12,169 @@ const array = [];
 fetch("https://randomuser.me/api/?results=12")
     .then(response => response.json())
     .then(eachProfile)
-    //.then(data => array.push(data))
-   // .then(arr => array.map(person => {
-
-    //    cards(person)
-    //    console.log(person);
-
-       
-  //  }))
 
 
-
-//}
-
-function getJSON(url) {
-    fetch("https://randomuser.me/api/?results=12")
-        .then(response => response.json())
-        .then(eachProfile(response))
-
-}
 function eachProfile(json) {
-
-    const profiles = array.push(json);
+    array.push(json.results);
+    
     array.map(person => {
 
+        console.log(array);
+        return cards(person);
 
-    return cards(person);
 
     });
 
-    return profiles;
+    return array;
 
 }
-
-   // .then(array => array.results.map(person => {
-    //    console.log(person);
-        //
-//array.results.map(person => console.log(person));
-
-       
-   
-
-
-
 
 
 //############ GenerateHTML ##################
 
 function cards(data) {
 
+    for (let i = 0; i < data.length; i++) {
 
-    //onsole.log(data.length);
-   // console.log(data.results[0].gender);
-        const card = document.createElement("div");
-              card.setAttribute("class", "card");
-            document.body.appendChild(card);
-        const cardcontainer = document.createElement("div")
-              cardcontainer.setAttribute("class", "card-img-container");
-              card.appendChild(cardcontainer);
 
-  
+        let gallery = document.getElementById("gallery");
+        let card = document.createElement("div");
+        card.setAttribute("class", "card");
+        gallery.appendChild(card);
+   
 
+        let cardcontainer = document.createElement("div")
+        cardcontainer.setAttribute("class", "card-img-container");
+        card.appendChild(cardcontainer);
+
+
+
+
+        let img = document.createElement("img");
+        img.setAttribute("class", "card-img");
+        img.setAttribute("src", `${data[i].picture.large}`);
         
-        const img = document.createElement("img");
-              img.setAttribute("class", "card-img");
-              img.setAttribute("src", `${data.results[0].picture.large}`);
-              img.setAttribute("alt", "Profile picture");
-              cardcontainer.appendChild(img);
+        img.setAttribute("alt", "Profile picture");
+        cardcontainer.appendChild(img);
 
-        
+
 
         const cardinfocontainer = document.createElement("div")
-              cardinfocontainer.setAttribute("class", "card-info-container")
-              cardinfocontainer.innerHTML = 
-                  ` <h3 id="name" class= "card-name cap">${data.results[0].name.first} ${data.results[0].name.last}</h3>
-                    <p class= "card-text">${data.results[0].email}</p>
-                    <p class="card-text cap">${data.results[0].location.city} ${data.results[0].location.state}</p> `
-              card.appendChild(cardinfocontainer);
+        cardinfocontainer.setAttribute("class", "card-info-container")
+        cardinfocontainer.innerHTML =
+            `<h3 id="name" class= "card-name cap">${data[i].name.first} ${data[i].name.last}</h3>
+                    <p class= "card-text">${data[i].email}</p>
+                    <p class="card-text cap">${data[i].location.city} ${data[i].location.state}</p>`
+                    card.appendChild(cardinfocontainer);
 
+    
+        //######################## MODAL ####################################
+        card.addEventListener("click", (e) => {
 
-}
+            const divModal = document.createElement("div");
+            divModal.setAttribute("class", "modal-container");
 
+            const div = document.createElement("div");
+            div.setAttribute("class", "modal")
+            divModal.appendChild(div);
 
+            const button = document.createElement("button");
+            button.setAttribute("id", "modal-close-btn");
+            button.setAttribute("class", "modal-close-btn");
+            button.textContent = "x";
+           
+          
+            div.appendChild(button);
 
+            const divModalInfoContainer = document.createElement("div");
+            divModalInfoContainer.setAttribute("class", "modal-info-container")
+            div.appendChild(divModalInfoContainer);
 
-   // .then(data => cards(data.results))
-
-
-
-
-
-    /*
-
-<div class="modal-container">
-    <div class="modal">
-        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-        <div class="modal-info-container">
-            <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-                <h3 id="name" class="modal-name cap">name</h3>
-                <p class="modal-text">email</p>
-                <p class="modal-text cap">city</p>
+            const img = document.createElement("img");
+            divModalInfoContainer.innerHTML = 
+         `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
+                <p class="modal-text">E-mail ${data[i].email}</p >
+                <p class="modal-text cap">City: ${data[i].location.city}</p>
                 <hr>
-                    <p class="modal-text">(555) 555-5555</p>
-                    <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                    <p class="modal-text">Birthday: 10/21/2015</p>
-                </div>
-            </div>
+                    <p class="modal-text">Phone Number ${data[i].cell}</p>
+                    <p class="modal-text">Adress:${data[i].location.street.name} ${data[i].location.street.number} ${data[i].location.postcode}.</p>
+                    <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
-*/
 
-  
+            const body = document.body;
+            console.log(body);
+
+            body.appendChild(divModal);
+
+            button.onclick = function () {
+                div.style.display = "none";
+                divModal.style.display = "none";
+            }
+
+
+        })
+
+
+
+        const searchBar = document.getElementById("search-input");
+
+
+
+        searchBar.addEventListener("keyup", function (e) {
+            const input = e.target.value.toLowerCase();
+            const items = gallery.querySelectorAll(".card-info-container");
+            const first = items.firstChild;
+            const toarr = Array.from(document.querySelectorAll(".card"));
+            
+
+            toarr.forEach(function (toarr, index) {
+
+
+                console.log(toarr);
+
+            });
+
+
+
+          
+                Array.from(items).forEach(function (items) {
+
+
+
+
+                    const nameRes = items.firstElementChild.textContent;
+                    //console.log(nameRes);
+
+                    if (nameRes.toLowerCase().indexOf(input) != -1) {
+
+                //        arr.style.display = "block";
+
+                    }
+
+                    else {
+
+                   //     arr.style.display = "none";
+
+                    }
+
+                });
+
+
+            
+            });
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+//######################## SEARCH ##########################################33
