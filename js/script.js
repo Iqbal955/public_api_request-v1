@@ -125,15 +125,15 @@ function cards(data) {
             const input = e.target.value.toLowerCase();
             const items = gallery.querySelectorAll(".card-info-container");
             const first = items.firstChild;
-            const toarr = Array.from(document.querySelectorAll(".card"));
+            const cardArray = Array.from(document.querySelectorAll(".card"));
             
 
-            toarr.forEach(function (toarr, index) {
+            cardArray.forEach(function (cardArray) {
 
 
                 console.log(toarr);
 
-            });
+            
 
 
 
@@ -148,24 +148,28 @@ function cards(data) {
 
                     if (nameRes.toLowerCase().indexOf(input) != -1) {
 
-                //        arr.style.display = "block";
+                        cardArray.style.display = "block";
 
                     }
 
                     else {
 
-                   //     arr.style.display = "none";
+                        cardArray.style.display = "none";
 
                     }
 
                 });
 
 
+
             
             });
 
-        }
+        });
     }
+
+
+}
 
 
 
