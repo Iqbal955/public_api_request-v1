@@ -11,23 +11,11 @@ const array = [];
 
 fetch("https://randomuser.me/api/?results=12")
     .then(response => response.json())
-    .then(eachProfile)
+    .then(data => cards(data.results))
+    .then(modal(data.results))
+    .then(searchBar(data))
 
 
-function eachProfile(json) {
-    array.push(json.results);
-    
-    array.map(person => {
-
-        console.log(array);
-        return cards(person);
-
-
-    });
-
-    return array;
-
-}
 
 
 //############ GenerateHTML ##################
@@ -41,7 +29,7 @@ function cards(data) {
         let card = document.createElement("div");
         card.setAttribute("class", "card");
         gallery.appendChild(card);
-   
+
 
         let cardcontainer = document.createElement("div")
         cardcontainer.setAttribute("class", "card-img-container");
@@ -53,7 +41,7 @@ function cards(data) {
         let img = document.createElement("img");
         img.setAttribute("class", "card-img");
         img.setAttribute("src", `${data[i].picture.large}`);
-        
+
         img.setAttribute("alt", "Profile picture");
         cardcontainer.appendChild(img);
 
@@ -65,9 +53,15 @@ function cards(data) {
             `<h3 id="name" class= "card-name cap">${data[i].name.first} ${data[i].name.last}</h3>
                     <p class= "card-text">${data[i].email}</p>
                     <p class="card-text cap">${data[i].location.city} ${data[i].location.state}</p>`
-                    card.appendChild(cardinfocontainer);
+        card.appendChild(cardinfocontainer);
 
-    
+    }
+
+
+
+
+    function modal(data) {
+
         //######################## MODAL ####################################
         card.addEventListener("click", (e) => {
 
@@ -82,8 +76,8 @@ function cards(data) {
             button.setAttribute("id", "modal-close-btn");
             button.setAttribute("class", "modal-close-btn");
             button.textContent = "x";
-           
-          
+
+
             div.appendChild(button);
 
             const divModalInfoContainer = document.createElement("div");
@@ -91,8 +85,8 @@ function cards(data) {
             div.appendChild(divModalInfoContainer);
 
             const img = document.createElement("img");
-            divModalInfoContainer.innerHTML = 
-         `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
+            divModalInfoContainer.innerHTML =
+                `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
                 <p class="modal-text">E-mail ${data[i].email}</p >
                 <p class="modal-text cap">City: ${data[i].location.city}</p>
@@ -116,6 +110,11 @@ function cards(data) {
         })
 
 
+    }
+
+
+
+    function searchBar() {
 
         const searchBar = document.getElementById("search-input");
 
@@ -125,51 +124,41 @@ function cards(data) {
             const input = e.target.value.toLowerCase();
             const items = gallery.querySelectorAll(".card-info-container");
             const first = items.firstChild;
-            const cardArray = Array.from(document.querySelectorAll(".card"));
-            
+            const cardArray = document.querySelectorAll(".card");
+
+
 
             cardArray.forEach(function (cardArray) {
 
 
-                console.log(toarr);
 
-            
+                const nameRes = cardArray.querySelector("h3").textContent;
+                //console.log(nameRes);
 
+                if (nameRes.toLowerCase().indexOf(input) != -1) {
 
+                    cardArray.style.display = "flex";
 
-          
-                Array.from(items).forEach(function (items) {
+                }
 
+                else {
 
+                    cardArray.style.display = "none";
 
+                }
 
-                    const nameRes = items.firstElementChild.textContent;
-                    //console.log(nameRes);
-
-                    if (nameRes.toLowerCase().indexOf(input) != -1) {
-
-                        cardArray.style.display = "block";
-
-                    }
-
-                    else {
-
-                        cardArray.style.display = "none";
-
-                    }
-
-                });
-
-
-
-            
             });
 
+
+
+
         });
+
+
+    }
     }
 
 
-}
 
 
 
@@ -181,4 +170,5 @@ function cards(data) {
 
 
 
-//######################## SEARCH ##########################################33
+
+
