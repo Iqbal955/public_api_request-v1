@@ -13,7 +13,7 @@ fetch("https://randomuser.me/api/?results=12")
     .then(response => response.json())
     .then(data => cards(data.results))
     .then(modal(data.results))
-    .then(searchBar(data))
+    .then(searchBar(data.results))
 
 
 
