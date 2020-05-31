@@ -5,19 +5,46 @@ const modal = document.querySelector("div .modal-info-container");
 const modalImg = document.querySelector(".modal-img");
 const modalcontainer = document.getElementById("modal-container");
 const array = [];
-
+let card;
+let gallery;
+let cardcontainer;
+let img;
+let cardinfocontainer;
 //############ FETCH ####################
+const fetchURL = "https://randomuser.me/api/?results=12";
 
-
+//Trying to use the data variable from line 19, and passing it to line 20 and 21 
 fetch("https://randomuser.me/api/?results=12")
     .then(response => response.json())
     .then(data => cards(data.results))
-    .then(modal(data.results))
-    .then(searchBar(data.results))
+    .then(modal(data.results)
+        .then(searchBar(data.results)))
 
 
 
 
+////////////Trying to turn the code into multiple functions and into await and async + promises /
+
+//taking the getProfiles and making it into an async function
+       async function getProfiles(url) {
+           const fetchPeople = await fetch(url);
+           const fetchPeopleJSON = await fetchPeople.json();
+           const fetchPeopleData = await fetchPeopleJSON.results;
+           return fetchPeopleData;
+        };
+/*
+having one large async function, that runs getProfiles passing in the fetchURL from line 14, 
+then with the data running each function asynchronously
+
+*/
+        async function displayData() {
+         getProfiles(fetchURL)
+        .then(cards)
+        .then(modal)
+        .then(searchBar)
+
+
+};
 //############ GenerateHTML ##################
 
 function cards(data) {
@@ -25,20 +52,20 @@ function cards(data) {
     for (let i = 0; i < data.length; i++) {
 
 
-        let gallery = document.getElementById("gallery");
-        let card = document.createElement("div");
+        gallery = document.getElementById("gallery");
+        card = document.createElement("div");
         card.setAttribute("class", "card");
         gallery.appendChild(card);
 
 
-        let cardcontainer = document.createElement("div")
+        cardcontainer = document.createElement("div")
         cardcontainer.setAttribute("class", "card-img-container");
         card.appendChild(cardcontainer);
 
 
 
 
-        let img = document.createElement("img");
+        img = document.createElement("img");
         img.setAttribute("class", "card-img");
         img.setAttribute("src", `${data[i].picture.large}`);
 
@@ -47,7 +74,7 @@ function cards(data) {
 
 
 
-        const cardinfocontainer = document.createElement("div")
+        cardinfocontainer = document.createElement("div")
         cardinfocontainer.setAttribute("class", "card-info-container")
         cardinfocontainer.innerHTML =
             `<h3 id="name" class= "card-name cap">${data[i].name.first} ${data[i].name.last}</h3>
