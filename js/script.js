@@ -13,42 +13,38 @@ let cardinfocontainer;
 //############ FETCH ####################
 const fetchURL = "https://randomuser.me/api/?results=12";
 
-//Trying to use the data variable from line 19, and passing it to line 20 and 21 
-fetch("https://randomuser.me/api/?results=12")
-    .then(response => response.json())
-    .then(data => cards(data.results))
-    .then(modal(data.results)
-        .then(searchBar(data.results)))
-
 
 
 
 ////////////Trying to turn the code into multiple functions and into await and async + promises /
 
 //taking the getProfiles and making it into an async function
-       async function getProfiles(url) {
-           const fetchPeople = await fetch(url);
-           const fetchPeopleJSON = await fetchPeople.json();
-           const fetchPeopleData = await fetchPeopleJSON.results;
-           return fetchPeopleData;
-        };
+async function getProfiles(url) {
+    const fetchPeople = await fetch(url);
+    const fetchPeopleJSON = await fetchPeople.json();
+    const fetchPeopleData = await fetchPeopleJSON.results;
+    return fetchPeopleData;
+};
 /*
 having one large async function, that runs getProfiles passing in the fetchURL from line 14, 
 then with the data running each function asynchronously
 
 */
-        async function displayData() {
-         getProfiles(fetchURL)
+async function displayData() {
+    getProfiles(fetchURL)
         .then(cards)
-        .then(modal)
+        .then(createmodal)
         .then(searchBar)
 
 
 };
+
+
 //############ GenerateHTML ##################
 
 function cards(data) {
 
+   
     for (let i = 0; i < data.length; i++) {
 
 
@@ -82,38 +78,47 @@ function cards(data) {
                     <p class="card-text cap">${data[i].location.city} ${data[i].location.state}</p>`
         card.appendChild(cardinfocontainer);
 
+
+       
+
     }
+    return data;
+}
 
 
 
-
-    function modal(data) {
+function createmodal(data) {
 
         //######################## MODAL ####################################
         card.addEventListener("click", (e) => {
-
-            const divModal = document.createElement("div");
-            divModal.setAttribute("class", "modal-container");
-
-            const div = document.createElement("div");
-            div.setAttribute("class", "modal")
-            divModal.appendChild(div);
-
-            const button = document.createElement("button");
-            button.setAttribute("id", "modal-close-btn");
-            button.setAttribute("class", "modal-close-btn");
-            button.textContent = "x";
+            for (let i = 0; i < data.length; i++) {
 
 
-            div.appendChild(button);
+                console.log("click1");
 
-            const divModalInfoContainer = document.createElement("div");
-            divModalInfoContainer.setAttribute("class", "modal-info-container")
-            div.appendChild(divModalInfoContainer);
 
-            const img = document.createElement("img");
-            divModalInfoContainer.innerHTML =
-                `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
+                const divModal = document.createElement("div");
+                divModal.setAttribute("class", "modal-container");
+
+                const div = document.createElement("div");
+                div.setAttribute("class", "modal")
+                divModal.appendChild(div);
+
+                const button = document.createElement("button");
+                button.setAttribute("id", "modal-close-btn");
+                button.setAttribute("class", "modal-close-btn");
+                button.textContent = "x";
+
+
+                div.appendChild(button);
+
+                const divModalInfoContainer = document.createElement("div");
+                divModalInfoContainer.setAttribute("class", "modal-info-container")
+                div.appendChild(divModalInfoContainer);
+
+                const img = document.createElement("img");
+                divModalInfoContainer.innerHTML =
+                    `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
                 <p class="modal-text">E-mail ${data[i].email}</p >
                 <p class="modal-text cap">City: ${data[i].location.city}</p>
@@ -123,21 +128,25 @@ function cards(data) {
                     <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
 
-            const body = document.body;
-            console.log(body);
+                const body = document.body;
 
-            body.appendChild(divModal);
 
-            button.onclick = function () {
-                div.style.display = "none";
-                divModal.style.display = "none";
+                body.appendChild(divModal);
+
+                button.onclick = function () {
+                    div.style.display = "none";
+                    divModal.style.display = "none";
+                }
+
             }
+            })
 
 
-        })
-
-
+      return data;
     }
+
+
+
 
 
 
@@ -181,12 +190,12 @@ function cards(data) {
 
         });
 
+       
 
     }
-    }
 
 
-
+displayData();
 
 
 
