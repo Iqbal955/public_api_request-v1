@@ -83,42 +83,54 @@ function cards(data) {
 
     }
     return data;
+    
 }
 
 
 
 function createmodal(data) {
 
-        //######################## MODAL ####################################
-        card.addEventListener("click", (e) => {
-            for (let i = 0; i < data.length; i++) {
+    //######################## MODAL ####################################
 
 
-                console.log("click1");
+    gallery.addEventListener("click", (e) => {
 
 
-                const divModal = document.createElement("div");
-                divModal.setAttribute("class", "modal-container");
+        
+        const etarget = event.target;
 
-                const div = document.createElement("div");
-                div.setAttribute("class", "modal")
-                divModal.appendChild(div);
-
-                const button = document.createElement("button");
-                button.setAttribute("id", "modal-close-btn");
-                button.setAttribute("class", "modal-close-btn");
-                button.textContent = "x";
+        console.log(etarget.length);
+        for (let i = 0; i < 1; i++) {
+            console.log("click1");
 
 
-                div.appendChild(button);
 
-                const divModalInfoContainer = document.createElement("div");
-                divModalInfoContainer.setAttribute("class", "modal-info-container")
-                div.appendChild(divModalInfoContainer);
 
-                const img = document.createElement("img");
-                divModalInfoContainer.innerHTML =
-                    `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
+
+
+
+            const divModal = document.createElement("div");
+            divModal.setAttribute("class", "modal-container");
+
+            const div = document.createElement("div");
+            div.setAttribute("class", "modal")
+            divModal.appendChild(div);
+
+            const button = document.createElement("button");
+            button.setAttribute("id", "modal-close-btn");
+            button.setAttribute("class", "modal-close-btn");
+            button.textContent = "x";
+
+
+            div.appendChild(button);
+
+            const divModalInfoContainer = document.createElement("div");
+            divModalInfoContainer.setAttribute("class", "modal-info-container")
+            div.appendChild(divModalInfoContainer);
+
+            const img = document.createElement("img");
+            divModalInfoContainer.innerHTML =
+                `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
                 <p class="modal-text">E-mail ${data[i].email}</p >
                 <p class="modal-text cap">City: ${data[i].location.city}</p>
@@ -128,22 +140,27 @@ function createmodal(data) {
                     <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
 
-                const body = document.body;
+            const body = document.body;
 
 
-                body.appendChild(divModal);
+            body.appendChild(divModal);
 
-                button.onclick = function () {
-                    div.style.display = "none";
-                    divModal.style.display = "none";
-                }
-
+            button.onclick = function () {
+                div.style.display = "none";
+                divModal.style.display = "none";
             }
-            })
+
+        }
+
+    })
+
+}
+
+           // })
 
 
-      return data;
-    }
+     // return data;
+    
 
 
 
