@@ -1,10 +1,14 @@
 
+
+
+
 //############ DOM elements #############
 const search = document.querySelector("search-container");
 const modal = document.querySelector("div .modal-info-container");
 const modalImg = document.querySelector(".modal-img");
 const modalcontainer = document.getElementById("modal-container");
 const array = [];
+var div;
 let card;
 let gallery;
 let cardcontainer;
@@ -34,6 +38,7 @@ async function displayData() {
     getProfiles(fetchURL)
         .then(cards)
         .then(createmodal)
+        .then(nextprev)
         .then(searchBar)
 
 
@@ -83,36 +88,30 @@ function cards(data) {
 
     }
     return data;
+
     
 }
 
-
+let i;
 
 function createmodal(data) {
 
     //######################## MODAL ####################################
 
-
-    gallery.addEventListener("click", (e) => {
-
-
-        
-        const etarget = event.target;
-
-        console.log(etarget.length);
-        for (let i = 0; i < 1; i++) {
-            console.log("click1");
+    
+    for (let i = 0, len = data.length; i < len; i++) {
 
 
+        gallery.children[i + 1].onclick = function () {
 
-
+ 
 
 
 
             const divModal = document.createElement("div");
             divModal.setAttribute("class", "modal-container");
 
-            const div = document.createElement("div");
+            div = document.createElement("div");
             div.setAttribute("class", "modal")
             divModal.appendChild(div);
 
@@ -150,17 +149,69 @@ function createmodal(data) {
                 divModal.style.display = "none";
             }
 
-        }
 
-    })
+
+        
+
+
+
+
+            
+
+
+
+
+
+    }
+
+    }
+
+    return data;
+
 
 }
-
-           // })
-
-
-     // return data;
     
+
+
+
+function nextprev(data) {
+
+
+    // ######################### Prev and Next ################################
+
+    const modalbtnContainer = document.createElement("div");
+    modalbtnContainer.setAttribute("class", "modal-btn-container");
+
+
+
+    modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                <button type="button" id="modal-next" class="modal-next btn">Next</button>`
+
+    console.log(div);
+  // div.appendChild(modalbtnContainer);
+
+
+    const next = document.getElementById("modal-next");
+
+
+    next.onclick = function () {
+        div.style.display = "none";
+        divModal.style.display = "none";
+        console.log(data[i+1]);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+}
 
 
 
