@@ -192,7 +192,10 @@ function nextprev(data) {
     //setting the innerHTML for the next and previous button. (creating them)
     
   
-  // div.appendChild(modalbtnContainer); trying to append these to current modal, that is clicked on( the i'th modal from the previous loop);
+  // div.appendChild(modalbtnContainer); trying to append the next and prev button to the current clicked modal, (div)
+  //that is clicked on from the previous function(the i'th modal from the previous loop), this is where the issue is.
+// I dont want to create a new div, but rather use the div created at the ith position from the previous function. 
+//if i ran this in one large function, i guess it would work, but i rather split it up like this.
 
 
 
