@@ -115,6 +115,7 @@ function createmodal(data) {
             div.setAttribute("class", "modal")
             divModal.appendChild(div);
 
+           
             const button = document.createElement("button");
             button.setAttribute("id", "modal-close-btn");
             button.setAttribute("class", "modal-close-btn");
@@ -169,6 +170,8 @@ function createmodal(data) {
     return data;
 
 
+
+
 }
     
 
@@ -179,25 +182,30 @@ function nextprev(data) {
 
     // ######################### Prev and Next ################################
 
-    const modalbtnContainer = document.createElement("div");
-    modalbtnContainer.setAttribute("class", "modal-btn-container");
+    const modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
+    modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
 
 
 
     modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                 <button type="button" id="modal-next" class="modal-next btn">Next</button>`
-
-    console.log(div);
-  // div.appendChild(modalbtnContainer);
-
-
-    const next = document.getElementById("modal-next");
+    //setting the innerHTML for the next and previous button. (creating them)
+    
+  
+  // div.appendChild(modalbtnContainer); trying to append these to current modal, that is clicked on( the i'th modal from the previous loop);
 
 
-    next.onclick = function () {
-        div.style.display = "none";
-        divModal.style.display = "none";
-        console.log(data[i+1]);
+
+
+    const next = document.getElementById("modal-next"); //getting the next button id
+
+
+
+    next.onclick = function () { //when the next button is clicked
+        div.style.display = "none"; //the modal gets hidden
+        divModal.style.display = "none"; //the divmodal gets hidden
+        console.log(data[i+1]); //ideally i would call the function like this :
+                                // createmodal(data[i+1]); to create a new modal, incremented
 
 
     }
