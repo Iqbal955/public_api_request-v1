@@ -13,7 +13,11 @@ let card;
 let gallery;
 let cardcontainer;
 let img;
+let divModal;
 let cardinfocontainer;
+let xbutton;
+let divModalInfoContainer;
+const body = document.body;
 //############ FETCH ####################
 const fetchURL = "https://randomuser.me/api/?results=12";
 
@@ -38,8 +42,8 @@ async function displayData() {
     getProfiles(fetchURL)
         .then(cards)
         .then(createmodal)
-        .then(nextprev)
         .then(searchBar)
+        .then(nextprev)
 
 
 };
@@ -106,9 +110,7 @@ function createmodal(data) {
 
  
 
-
-
-            const divModal = document.createElement("div");
+            divModal = document.createElement("div");
             divModal.setAttribute("class", "modal-container");
 
             div = document.createElement("div");
@@ -116,19 +118,19 @@ function createmodal(data) {
             divModal.appendChild(div);
 
            
-            const button = document.createElement("button");
-            button.setAttribute("id", "modal-close-btn");
-            button.setAttribute("class", "modal-close-btn");
-            button.textContent = "x";
+            xbutton = document.createElement("button");
+            xbutton.setAttribute("id", "modal-close-btn");
+            xbutton.setAttribute("class", "modal-close-btn");
+            xbutton.textContent = "x";
 
 
-            div.appendChild(button);
+            div.appendChild(xbutton);
 
-            const divModalInfoContainer = document.createElement("div");
+            divModalInfoContainer = document.createElement("div");
             divModalInfoContainer.setAttribute("class", "modal-info-container")
             div.appendChild(divModalInfoContainer);
 
-            const img = document.createElement("img");
+           
             divModalInfoContainer.innerHTML =
                 `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
@@ -140,12 +142,12 @@ function createmodal(data) {
                     <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
 
-            const body = document.body;
+            
 
 
             body.appendChild(divModal);
 
-            button.onclick = function () {
+            xbutton.onclick = function () {
                 div.style.display = "none";
                 divModal.style.display = "none";
             }
@@ -153,6 +155,13 @@ function createmodal(data) {
 
 
         
+
+
+
+
+            
+
+
 
 
 
@@ -170,11 +179,9 @@ function createmodal(data) {
 
 
 
-
-   
-
 function nextprev(data) {
 
+    console.log(div);
 
     // ######################### Prev and Next ################################
 
@@ -186,11 +193,12 @@ function nextprev(data) {
     modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
                 <button type="button" id="modal-next" class="modal-next btn">Next</button>`
     //setting the innerHTML for the next and previous button. (creating them)
+    
+    div.appendChild(modalbtnContainer);  //  trying to append these to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
+    
+ 
 
-
-    div.appendChild(modalbtnContainer); // append these to current modal that is named (div)
-
-
+    console.log(modalbtnContainer);
 
 
     const next = document.getElementById("modal-next"); //getting the next button id
@@ -198,10 +206,10 @@ function nextprev(data) {
 
 
     next.onclick = function () { //when the next button is clicked
-        createmodal(data[i + 1]);
         div.style.display = "none"; //the modal gets hidden
         divModal.style.display = "none"; //the divmodal gets hidden
-        console.log("clicked");
+        createmodal(data[i+1]); //ideally i would call the function like this :
+                                // createmodal(data[i+1]); to create a new modal af
 
 
     }
@@ -211,10 +219,11 @@ function nextprev(data) {
 
 
 
+
+
+
+
 }
-
-
-
 
 
 
