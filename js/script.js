@@ -20,6 +20,7 @@ let divModalInfoContainer;
 const body = document.body;
 //############ FETCH ####################
 const fetchURL = "https://randomuser.me/api/?results=12";
+let i;
 
 
 
@@ -49,10 +50,11 @@ async function displayData() {
 };
 
 
+
 //############ GenerateHTML ##################
 
 function cards(data) {
-
+   
    
     for (let i = 0; i < data.length; i++) {
 
@@ -92,11 +94,10 @@ function cards(data) {
 
     }
     return data;
-
+  
     
 }
 
-let i;
 
 function createmodal(data) {
 
@@ -106,29 +107,31 @@ function createmodal(data) {
     for (let i = 0, len = data.length; i < len; i++) {
 
 
+        divModal = document.createElement("div");
+        divModal.setAttribute("class", "modal-container");
+
+        div = document.createElement("div");
+        div.setAttribute("class", "modal")
+        divModal.appendChild(div);
+
+
+        xbutton = document.createElement("button");
+        xbutton.setAttribute("id", "modal-close-btn");
+        xbutton.setAttribute("class", "modal-close-btn");
+        xbutton.textContent = "x";
+
+
+        div.appendChild(xbutton);
+
+        divModalInfoContainer = document.createElement("div");
+        divModalInfoContainer.setAttribute("class", "modal-info-container")
+        div.appendChild(divModalInfoContainer);
+
         gallery.children[i + 1].onclick = function () {
 
  
 
-            divModal = document.createElement("div");
-            divModal.setAttribute("class", "modal-container");
 
-            div = document.createElement("div");
-            div.setAttribute("class", "modal")
-            divModal.appendChild(div);
-
-           
-            xbutton = document.createElement("button");
-            xbutton.setAttribute("id", "modal-close-btn");
-            xbutton.setAttribute("class", "modal-close-btn");
-            xbutton.textContent = "x";
-
-
-            div.appendChild(xbutton);
-
-            divModalInfoContainer = document.createElement("div");
-            divModalInfoContainer.setAttribute("class", "modal-info-container")
-            div.appendChild(divModalInfoContainer);
 
            
             divModalInfoContainer.innerHTML =
@@ -190,10 +193,27 @@ function nextprev(data) {
 
 
 
-    modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                <button type="button" id="modal-next" class="modal-next btn">Next</button>`
+
+    //modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+           //     <button type="button" id="modal-next" class="modal-next btn">Next</button>`
     //setting the innerHTML for the next and previous button. (creating them)
-    
+
+
+
+    const nextbutton = document.createElement("button");
+    nextbutton.setAttribute("id", "modal-next");
+    nextbutton.setAttribute("class", "modal-next btn");
+    nextbutton.textContent = "Next";
+
+
+
+    const prevbutton = document.createElement("button");
+    prevbutton.setAttribute("id", "modal-prev");
+    prevbutton.setAttribute("class", "modal-prev btn");
+    prevbutton.textContent = "Prev";
+
+    modalbtnContainer.appendChild(prevbutton);
+    modalbtnContainer.appendChild(nextbutton);
     div.appendChild(modalbtnContainer);  //  trying to append these to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
     
  
@@ -201,15 +221,27 @@ function nextprev(data) {
     console.log(modalbtnContainer);
 
 
-    const next = document.getElementById("modal-next"); //getting the next button id
+    console.log(nextbutton); //getting the next button id
+   
+   
 
-
-
-    next.onclick = function () { //when the next button is clicked
+    nextbutton.onclick = function () { //when the next button is clicked
         div.style.display = "none"; //the modal gets hidden
         divModal.style.display = "none"; //the divmodal gets hidden
+        console.log(i);
         createmodal(data[i+1]); //ideally i would call the function like this :
                                 // createmodal(data[i+1]); to create a new modal af
+
+
+    }
+
+
+    prevbutton.onclick = function () { //when the next button is clicked
+        div.style.display = "none"; //the modal gets hidden
+        divModal.style.display = "none"; //the divmodal gets hidden
+        console.log(i);
+        createmodal(data[i-1]); //ideally i would call the function like this :
+        // createmodal(data[i+1]); to create a new modal af
 
 
     }
