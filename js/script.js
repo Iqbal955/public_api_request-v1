@@ -38,6 +38,7 @@ async function displayData() {
     getProfiles(fetchURL)
         .then(cards)
         .then(createmodal)
+        .then(nextprev)
         .then(searchBar)
 
 
@@ -152,35 +153,7 @@ function createmodal(data) {
 
 
         
-            // ######################### Prev and Next ################################
 
-            const modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
-            modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
-
-
-
-            modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                <button type="button" id="modal-next" class="modal-next btn">Next</button>`
-            //setting the innerHTML for the next and previous button. (creating them)
-
-
-            div.appendChild(modalbtnContainer); // append the prev and next button to the current modal
-
-
-
-
-            const next = document.getElementById("modal-next"); //getting the next button id
-
-
-
-            next.onclick = function () { //when the next button is clicked
-                createmodal(data[i + 1]);
-                div.style.display = "none"; //the modal gets hidden
-                divModal.style.display = "none"; //the divmodal gets hidden
-                console.log("clicked");
-
-
-            }
 
 
     }
@@ -200,7 +173,45 @@ function createmodal(data) {
 
    
 
+function nextprev(data) {
 
+
+    // ######################### Prev and Next ################################
+
+    const modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
+    modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
+
+
+
+    modalbtnContainer.innerHTML = `<button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                <button type="button" id="modal-next" class="modal-next btn">Next</button>`
+    //setting the innerHTML for the next and previous button. (creating them)
+
+
+    div.appendChild(modalbtnContainer); // append these to current modal that is named (div)
+
+
+
+
+    const next = document.getElementById("modal-next"); //getting the next button id
+
+
+
+    next.onclick = function () { //when the next button is clicked
+        createmodal(data[i + 1]);
+        div.style.display = "none"; //the modal gets hidden
+        divModal.style.display = "none"; //the divmodal gets hidden
+        console.log("clicked");
+
+
+    }
+
+
+
+
+
+
+}
 
 
 
