@@ -44,7 +44,7 @@ async function displayData() {
         .then(cards)
         .then(createmodal)
         .then(searchBar)
-        .then(nextprev)
+   
 
 
 };
@@ -146,7 +146,7 @@ function createmodal(data) {
 
 
             
-
+            nextprev(data, i);
 
             body.appendChild(divModal);
 
@@ -182,9 +182,9 @@ function createmodal(data) {
 
 
 
-function nextprev(data) {
+function nextprev(data, i) {
 
-    console.log(div);
+   
 
     // ######################### Prev and Next ################################
 
@@ -216,7 +216,7 @@ function nextprev(data) {
     modalbtnContainer.appendChild(nextbutton);
     div.appendChild(modalbtnContainer);  //  trying to append these to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
     
- 
+    console.log(i);
 
     console.log(modalbtnContainer);
 
