@@ -106,6 +106,9 @@ function createmodal(data) {
     
     for (let i = 0, len = data.length; i < len; i++) {
 
+        gallery.children[i + 1].onclick = function () {
+
+
 
         divModal = document.createElement("div");
         divModal.setAttribute("class", "modal-container");
@@ -127,8 +130,7 @@ function createmodal(data) {
         divModalInfoContainer.setAttribute("class", "modal-info-container")
         div.appendChild(divModalInfoContainer);
 
-        gallery.children[i + 1].onclick = function () {
-
+       
  
 
 
@@ -151,8 +153,8 @@ function createmodal(data) {
             body.appendChild(divModal);
 
             xbutton.onclick = function () {
-                div.style.display = "none";
-                divModal.style.display = "none";
+                div.remove();
+                divModal.remove();
             }
 
 
@@ -217,6 +219,7 @@ function nextprev(data, i) {
     div.appendChild(modalbtnContainer);  //  trying to append these to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
     
     console.log(i);
+    console.log(div);
 
     console.log(modalbtnContainer);
 
@@ -226,9 +229,9 @@ function nextprev(data, i) {
    
 
     nextbutton.onclick = function () { //when the next button is clicked
-        div.style.display = "none"; //the modal gets hidden
-        divModal.style.display = "none"; //the divmodal gets hidden
-        console.log(i);
+        div.remove(); //the modal gets hidden
+        divModal.remove(); //the divmodal gets hidden
+        console.log(data[i]);
         createmodal(data[i+1]); //ideally i would call the function like this :
                                 // createmodal(data[i+1]); to create a new modal af
 
@@ -237,8 +240,8 @@ function nextprev(data, i) {
 
 
     prevbutton.onclick = function () { //when the next button is clicked
-        div.style.display = "none"; //the modal gets hidden
-        divModal.style.display = "none"; //the divmodal gets hidden
+        div.remove(); //the modal gets hidden
+        divModal.remove(); //the divmodal gets hidden
         console.log(i);
         createmodal(data[i-1]); //ideally i would call the function like this :
         // createmodal(data[i+1]); to create a new modal af
