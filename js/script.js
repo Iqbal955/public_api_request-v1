@@ -15,6 +15,7 @@ let cardinfocontainer;
 let xbutton;
 let divModalInfoContainer;
 const body = document.body;
+let len;
 
 
 let modalbtnContainer;
@@ -146,15 +147,18 @@ function createmodal(data) {
 
             body.appendChild(divModal);
 
-            nextprev(data, i);
+            
 
             xbutton.onclick = function () {
                 div.remove();
                 divModal.remove();
             }
 
+            nextprev(data, i);
 
-    }
+
+        }
+
 
     }
 
@@ -193,7 +197,7 @@ function nextprev(data, i) {
     modalbtnContainer.appendChild(prevbutton);
     modalbtnContainer.appendChild(nextbutton);
     div.appendChild(modalbtnContainer);  //  append to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
-    
+
 
     nextbutton.onclick = function () { //when the next button is clicked
         div.remove(); //the modal gets hidden
@@ -207,12 +211,12 @@ function nextprev(data, i) {
     prevbutton.onclick = function () { //when the next button is clicked
         div.remove(); //the modal gets hidden
         divModal.remove(); //the divmodal gets hidden
-        createModalNextPrev(data); ////calls the function createModalNextPrev and sets the i - 1
+        createModalNextPrev(data[i - 1]); ////calls the function createModalNextPrev and sets the i - 1
 
 
     }
 
-    createModalNextPrev(data);
+  
 
 }
 
@@ -224,7 +228,7 @@ function createModalNextPrev(data) {
     for (let i = 0, len = data.length; i < len; i++) {
         
       
-     //   console.log(data[i]);
+       console.log(data[i]);
 
         //////////////////// ############# Creates Modal ################# //////////////777
             divModal = document.createElement("div");
