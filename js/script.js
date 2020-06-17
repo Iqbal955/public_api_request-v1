@@ -45,7 +45,7 @@ then with the data running each function asynchronously
 async function displayData() {
     getProfiles(fetchURL)
         .then(cards)
-        .then(createmodal)
+        .then(modalEvents)
         .then(searchBar)
    
 
@@ -102,15 +102,13 @@ function cards(data) {
 }
 
 
-function createmodal(data) {
+function createmodal(data, i) {
 
     //######################## MODAL ####################################
 
     console.log(data);
-    for (let i = 0, len = data.length; i < len; i++) {
-
-        gallery.children[i + 1].onclick = function () {
-
+    console.log("this is " + i);
+ 
 
 
         divModal = document.createElement("div");
@@ -143,6 +141,27 @@ function createmodal(data) {
                     <p class="modal-text">Adress:${data[i].location.street.name} ${data[i].location.street.number} ${data[i].location.postcode}.</p>
                     <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
+
+            modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
+            modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
+
+
+            nextbutton = document.createElement("button");
+            nextbutton.setAttribute("id", "modal-next");
+            nextbutton.setAttribute("class", "modal-next btn");
+            nextbutton.textContent = "Next";
+
+
+
+            prevbutton = document.createElement("button");
+            prevbutton.setAttribute("id", "modal-prev");
+            prevbutton.setAttribute("class", "modal-prev btn");
+            prevbutton.textContent = "Prev";
+
+            modalbtnContainer.appendChild(prevbutton);
+            modalbtnContainer.appendChild(nextbutton);
+            div.appendChild(modalbtnContainer);  //  append to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
+
             
 
             body.appendChild(divModal);
@@ -154,21 +173,35 @@ function createmodal(data) {
                 divModal.remove();
             }
 
-            nextprev(data, i);
+             //does not need to be called   modalEvents(data, i);
 
 
-        }
 
 
-    }
+    
 
     return data;
 
 
 
+    
+}
+
+
+function modalEvents(data) {
+    for (let i = 0, len = data.length; i < len; i++) { //loops through all cards
+        gallery.children[i + 1].onclick = function () { //for each card a event listener is added
+            createmodal(data, i) //when the card is clicked the createmodal get called (which is the function that creates the modal)
+            nextprev(data, i); //the next and previous button event function is then called
+            console.log(i);
+
+        }
+    }
+
+
+
 
 }
-    
 
 
 
@@ -178,31 +211,12 @@ function nextprev(data, i) {
 
     // ######################### Prev and Next click function and creation ################################
 
-    modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
-    modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
-
-
-    nextbutton = document.createElement("button");
-    nextbutton.setAttribute("id", "modal-next");
-    nextbutton.setAttribute("class", "modal-next btn");
-    nextbutton.textContent = "Next";
-
-
-
-    prevbutton = document.createElement("button");
-    prevbutton.setAttribute("id", "modal-prev");
-    prevbutton.setAttribute("class", "modal-prev btn");
-    prevbutton.textContent = "Prev";
-
-    modalbtnContainer.appendChild(prevbutton);
-    modalbtnContainer.appendChild(nextbutton);
-    div.appendChild(modalbtnContainer);  //  append to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
-
+    
 
     nextbutton.onclick = function () { //when the next button is clicked
         div.remove(); //the modal gets hidden
         divModal.remove(); //the divmodal gets hidden
-        createModalNextPrev(data[i + 1]);
+        createmodal(data[i + 1]); //the createmodal gets called and creates a modal for the next card in the loop
 
 
     }
@@ -211,7 +225,7 @@ function nextprev(data, i) {
     prevbutton.onclick = function () { //when the next button is clicked
         div.remove(); //the modal gets hidden
         divModal.remove(); //the divmodal gets hidden
-        createModalNextPrev(data[i - 1]); ////calls the function createModalNextPrev and sets the i - 1
+        createmodal(data[i - 1]); //the createmodal gets called and creates a modal for the prev card in the loop
 
 
     }
@@ -219,89 +233,6 @@ function nextprev(data, i) {
   
 
 }
-
-    // #########################  creates modal and prev -1 and next button +1, gets called by prevandnext() ################################
-function createModalNextPrev(data) {
-
-
-
-    for (let i = 0, len = data.length; i < len; i++) {
-        
-      
-       console.log(data[i]);
-
-        //////////////////// ############# Creates Modal ################# //////////////777
-            divModal = document.createElement("div");
-            divModal.setAttribute("class", "modal-container");
-
-            div = document.createElement("div");
-            div.setAttribute("class", "modal")
-            divModal.appendChild(div);
-
-
-            xbutton = document.createElement("button");
-            xbutton.setAttribute("id", "modal-close-btn");
-            xbutton.setAttribute("class", "modal-close-btn");
-            xbutton.textContent = "x";
-
-
-            div.appendChild(xbutton);
-
-            divModalInfoContainer = document.createElement("div");
-            divModalInfoContainer.setAttribute("class", "modal-info-container")
-            div.appendChild(divModalInfoContainer);
-
-
-
-            divModalInfoContainer.innerHTML =
-                `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
-                <p class="modal-text">E-mail ${data[i].email}</p >
-                <p class="modal-text cap">City: ${data[i].location.city}</p>
-                <hr>
-                    <p class="modal-text">Phone Number ${data[i].cell}</p>
-                    <p class="modal-text">Adress:${data[i].location.street.name} ${data[i].location.street.number} ${data[i].location.postcode}.</p>
-                    <p class="modal-text">Age: ${data[i].dob.age}</p>`;
-
-
-        body.appendChild(divModal);
-
-        xbutton.onclick = function () {
-            div.remove();
-            divModal.remove();
-        }
-
-
-        // ######################### Prev and Next creation ################################
-
-        modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
-        modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
-
-        nextbutton = document.createElement("button");
-        nextbutton.setAttribute("id", "modal-next");
-        nextbutton.setAttribute("class", "modal-next btn");
-        nextbutton.textContent = "Next";
-
-
-
-        prevbutton = document.createElement("button");
-        prevbutton.setAttribute("id", "modal-prev");
-        prevbutton.setAttribute("class", "modal-prev btn");
-        prevbutton.textContent = "Prev";
-
-        modalbtnContainer.appendChild(prevbutton);
-        modalbtnContainer.appendChild(nextbutton);
-        div.appendChild(modalbtnContainer);  //  trying to append these to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
-
-
-
-
-        }
-    return data;
-    }
-
-
-
 
 
 
