@@ -59,7 +59,7 @@ async function displayData() {
 function cards(data) {
    
    
-    for (let i = 0; i < data.length; i++) {
+    for (i = 0; i < data.length; i++) {
 
 
         gallery = document.getElementById("gallery");
@@ -207,7 +207,7 @@ function modalEvents(data) {
 
 function nextprev(data, i) {
 
-   
+    var dataArr = Object.entries(data);
 
     // ######################### Prev and Next click function and creation ################################
 
@@ -216,7 +216,8 @@ function nextprev(data, i) {
     nextbutton.onclick = function () { //when the next button is clicked
         div.remove(); //the modal gets hidden
         divModal.remove(); //the divmodal gets hidden
-        createmodal(data[i + 1]); //the createmodal gets called and creates a modal for the next card in the loop
+
+        createmodal(dataArr[i + 1]); //the createmodal gets called and creates a modal for the next card in the loop
 
 
     }
@@ -225,7 +226,7 @@ function nextprev(data, i) {
     prevbutton.onclick = function () { //when the next button is clicked
         div.remove(); //the modal gets hidden
         divModal.remove(); //the divmodal gets hidden
-        createmodal(data[i - 1]); //the createmodal gets called and creates a modal for the prev card in the loop
+        createmodal(dataArr[i - 1]); //the createmodal gets called and creates a modal for the next card in the loop
 
 
     }
