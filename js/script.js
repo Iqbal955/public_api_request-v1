@@ -189,7 +189,7 @@ function createmodal(data, i) {
 
 
 function modalEvents(data) {
-    for (let i = 0, len = data.length; i < len; i++) { //loops through all cards
+    for (i = 0, len = data.length; i < len; i++) { //loops through all cards
         gallery.children[i + 1].onclick = function () { //for each card a event listener is added
             createmodal(data, i) //when the card is clicked the createmodal get called (which is the function that creates the modal)
             nextprev(data, i); //the next and previous button event function is then called
