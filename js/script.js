@@ -237,7 +237,7 @@ function nextprev(data, i) {
 
         }
     });
-    return data;
+    return dataArr;
     return i;
 
 }
