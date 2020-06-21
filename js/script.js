@@ -108,7 +108,7 @@ function createmodal(data, i) {
 
     console.log(data);
     console.log("this is " + i);
- 
+  
 
 
         divModal = document.createElement("div");
@@ -207,31 +207,36 @@ function modalEvents(data) {
 
 function nextprev(data, i) {
 
+
+    
     console.log("in nextprev the i is" + i);
     var dataArr = Object.entries(data);
 
-    // ######################### Prev and Next click function and creation ################################
+    dataArr.forEach(dataArr => {
+       
+        // ######################### Prev and Next click function and creation ################################
 
-    
-
-    nextbutton.onclick = function () { //when the next button is clicked
-        div.remove(); //the modal gets hidden
-        divModal.remove(); //the divmodal gets hidden
-
-        createmodal(dataArr[i + 1], i); //the createmodal gets called and creates a modal for the next card in the loop
+        console.log(nextbutton);
 
 
-    }
+        nextbutton.onclick = function () { //when the next button is clicked
+            div.remove(); //the modal gets hidden
+            divModal.remove(); //the divmodal gets hidden
+
+            createmodal(dataArr[i + 1], i); //the createmodal gets called and creates a modal for the next card in the loop
 
 
-    prevbutton.onclick = function () { //when the next button is clicked
-        div.remove(); //the modal gets hidden
-        divModal.remove(); //the divmodal gets hidden
-        createmodal(dataArr[i - 1], i); //the createmodal gets called and creates a modal for the next card in the loop
+        }
 
 
-    }
+        prevbutton.onclick = function () { //when the next button is clicked
+            div.remove(); //the modal gets hidden
+            divModal.remove(); //the divmodal gets hidden
+            createmodal(dataArr[i - 1], i); //the createmodal gets called and creates a modal for the next card in the loop
 
+
+        }
+    });
     return data;
     return i;
 
