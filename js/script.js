@@ -18,6 +18,7 @@ const body = document.body;
 let len;
 
 
+
 let modalbtnContainer;
 let nextbutton;
 let prevbutton;
@@ -31,26 +32,26 @@ let i;
 ////////////Trying to turn the code into multiple functions and into await and async + promises /
 
 //taking the getProfiles and making it into an async function
-async function getProfiles(url) {
-    const fetchPeople = await fetch(url);
-    const fetchPeopleJSON = await fetchPeople.json();
-    const fetchPeopleData = await fetchPeopleJSON.results;
-    return fetchPeopleData;
-};
+
+var fetchpeopledata;
+
+fetch("https://randomuser.me/api/?results=12")
+    .then(fetchPeopleJSON => fetchPeopleJSON.json())
+    .then(fetchpeopledata => {
+
+        const data = fetchpeopledata.results
+             data
+            .then(cards(data))
+            .then(modalEvents(data))
+            .then(searchBar(data))
+    });
+
 /*
 having one large async function, that runs getProfiles passing in the fetchURL from line 14, 
 then with the data running each function asynchronously
 
 */
-async function displayData() {
-    getProfiles(fetchURL)
-        .then(cards)
-        .then(modalEvents)
-        .then(searchBar)
-   
 
-
-};
 
 
 
@@ -290,7 +291,7 @@ function nextprev(data, i) {
     }
 
 
-displayData();
+
 
 
 
