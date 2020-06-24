@@ -28,20 +28,13 @@ let i;
 
 
 
+fetch("https://randomuser.me/api/?results=12") //fetches the api
+    .then(fetchPeopleJSON => fetchPeopleJSON.json()) //turns api to json
+    .then(fetchpeopledata => { 
 
-////////////Trying to turn the code into multiple functions and into await and async + promises /
-
-//taking the getProfiles and making it into an async function
-
-var fetchpeopledata;
-
-fetch("https://randomuser.me/api/?results=12")
-    .then(fetchPeopleJSON => fetchPeopleJSON.json())
-    .then(fetchpeopledata => {
-
-        const data = fetchpeopledata.results
+        const data = fetchpeopledata.results //sets data = result of json 
              data
-            .then(cards(data))
+            .then(cards(data)) //runs the functions 
             .then(modalEvents(data))
             .then(searchBar(data))
     });
