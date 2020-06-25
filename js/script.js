@@ -28,23 +28,19 @@ let i;
 
 
 
-fetch("https://randomuser.me/api/?results=12") //fetches the api
-    .then(fetchPeopleJSON => fetchPeopleJSON.json()) //turns api to json
-    .then(fetchpeopledata => { 
 
-        const data = fetchpeopledata.results //sets data = result of json 
-             data
-            .then(cards(data)) //runs the functions 
-            .then(modalEvents(data))
-            .then(searchBar(data))
-    });
 
-/*
-having one large async function, that runs getProfiles passing in the fetchURL from line 14, 
-then with the data running each function asynchronously
+////////////creating an async function and then calls functions/////// /
 
-*/
+        async function getProfiles(url) {
+    const fetchPeople = await fetch(url);
+    const fetchPeopleJSON = await fetchPeople.json();
+    const fetchPeopleData = await fetchPeopleJSON.results; //returns the list of users
+            cards(fetchPeopleData); //Calls the card function
+            modalEvents(fetchPeopleData); //Calls the event listener function to react to clicks , etc
+            searchBar(fetchPeopleData); //Calls the search function
 
+};
 
 
 
@@ -285,9 +281,7 @@ function nextprev(data, i) {
 
 
 
-
-
-
+getProfiles(fetchURL);
 
 
 
