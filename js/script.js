@@ -1,4 +1,3 @@
-
 //############ DOM elements #############
 const search = document.querySelector("search-container");
 const modal = document.querySelector("div .modal-info-container");
@@ -32,13 +31,13 @@ let i;
 
 ////////////creating an async function and then calls functions/////// /
 
-        async function getProfiles(url) {
+async function getProfiles(url) {
     const fetchPeople = await fetch(url);
     const fetchPeopleJSON = await fetchPeople.json();
     const fetchPeopleData = await fetchPeopleJSON.results; //returns the list of users
-            cards(fetchPeopleData); //Calls the card function
-            modalEvents(fetchPeopleData); //Calls the event listener function to react to clicks , etc
-            searchBar(fetchPeopleData); //Calls the search function
+    cards(fetchPeopleData); //Calls the card function
+    modalEvents(fetchPeopleData); //Calls the event listener function to react to clicks , etc
+    searchBar(fetchPeopleData); //Calls the search function
 
 };
 
@@ -47,8 +46,8 @@ let i;
 //############ GenerateHTML ##################
 
 function cards(data) {
-   
-   
+
+
     for (let i = 0; i < data.length; i++) {
 
 
@@ -83,12 +82,12 @@ function cards(data) {
         card.appendChild(cardinfocontainer);
 
 
-       
+
 
     }
     return data;
-  
-    
+
+
 }
 
 
@@ -98,31 +97,31 @@ function createmodal(data, i) {
 
     console.log(data);
     console.log("this is " + i);
-  
 
 
-        divModal = document.createElement("div");
-        divModal.setAttribute("class", "modal-container");
 
-        div = document.createElement("div");
-        div.setAttribute("class", "modal")
-        divModal.appendChild(div);
+    divModal = document.createElement("div");
+    divModal.setAttribute("class", "modal-container");
 
-
-        xbutton = document.createElement("button");
-        xbutton.setAttribute("id", "modal-close-btn");
-        xbutton.setAttribute("class", "modal-close-btn");
-        xbutton.textContent = "x";
+    div = document.createElement("div");
+    div.setAttribute("class", "modal")
+    divModal.appendChild(div);
 
 
-        div.appendChild(xbutton);
+    xbutton = document.createElement("button");
+    xbutton.setAttribute("id", "modal-close-btn");
+    xbutton.setAttribute("class", "modal-close-btn");
+    xbutton.textContent = "x";
 
-        divModalInfoContainer = document.createElement("div");
-        divModalInfoContainer.setAttribute("class", "modal-info-container")
-        div.appendChild(divModalInfoContainer);
 
-            divModalInfoContainer.innerHTML =
-                `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
+    div.appendChild(xbutton);
+
+    divModalInfoContainer = document.createElement("div");
+    divModalInfoContainer.setAttribute("class", "modal-info-container")
+    div.appendChild(divModalInfoContainer);
+
+    divModalInfoContainer.innerHTML =
+        `<img class="modal-img" src= "${data[i].picture.large}" alt="profile picture">
                 <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
                 <p class="modal-text">E-mail ${data[i].email}</p >
                 <p class="modal-text cap">City: ${data[i].location.city}</p>
@@ -132,55 +131,55 @@ function createmodal(data, i) {
                     <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
 
-            modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
-            modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
+    modalbtnContainer = document.createElement("div"); //creating the container for the next and previous button
+    modalbtnContainer.setAttribute("class", "modal-btn-container"); //setting the class
 
 
-            nextbutton = document.createElement("button");
-            nextbutton.setAttribute("id", "modal-next");
-            nextbutton.setAttribute("class", "modal-next btn");
-            nextbutton.textContent = "Next";
-
-
-
-            prevbutton = document.createElement("button");
-            prevbutton.setAttribute("id", "modal-prev");
-            prevbutton.setAttribute("class", "modal-prev btn");
-            prevbutton.textContent = "Prev";
-
-            modalbtnContainer.appendChild(prevbutton);
-            modalbtnContainer.appendChild(nextbutton);
-            div.appendChild(modalbtnContainer);  //  append to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
-
-            
-
-            body.appendChild(divModal);
-
-            
-
-            xbutton.onclick = function () {
-                div.remove();
-                divModal.remove();
-            }
-
-             //does not need to be called   modalEvents(data, i);
+    nextbutton = document.createElement("button");
+    nextbutton.setAttribute("id", "modal-next");
+    nextbutton.setAttribute("class", "modal-next btn");
+    nextbutton.textContent = "Next";
 
 
 
+    prevbutton = document.createElement("button");
+    prevbutton.setAttribute("id", "modal-prev");
+    prevbutton.setAttribute("class", "modal-prev btn");
+    prevbutton.textContent = "Prev";
 
-    
+    modalbtnContainer.appendChild(prevbutton);
+    modalbtnContainer.appendChild(nextbutton);
+    div.appendChild(modalbtnContainer);  //  append to current modal (named div), that is clicked on( the i'th modal from the createmodal loop);
+
+
+
+    body.appendChild(divModal);
+
+
+
+    xbutton.onclick = function () {
+        div.remove();
+        divModal.remove();
+    }
+
+    //does not need to be called   modalEvents(data, i);
+
+
+
+
+
 
     return data;
 
 
 
-    
+
 }
 
 
 function modalEvents(data) {
     for (let i = 0, len = data.length; i < len; i++) { //loops through all cards
-        gallery.children[i + 1].onclick = function () { //for each card a event listener is added
+        gallery.querySelectorAll('.card')[i].onclick = function () { //for each card a event listener is added
             createmodal(data, i) //when the card is clicked the createmodal get called (which is the function that creates the modal)
             nextprev(data, i); //the next and previous button event function is then called
             console.log(i);
@@ -198,12 +197,12 @@ function modalEvents(data) {
 function nextprev(data, i) {
 
 
-    
-    console.log("in nextprev the i is" + i);
-    var dataArr = Object.entries(data);
 
-    dataArr.forEach(dataArr => {
-       
+    console.log("in nextprev the i is" + i);
+    
+
+    data.forEach(dataArr => {
+
         // ######################### Prev and Next click function and creation ################################
 
         console.log(nextbutton);
@@ -226,8 +225,9 @@ function nextprev(data, i) {
 
 
         }
+        return dataArr;
     });
-    return dataArr;
+    
     return i;
 
 }
@@ -235,59 +235,51 @@ function nextprev(data, i) {
 
 
 
-    function searchBar() {
+function searchBar() {
 
-        const searchBar = document.getElementById("search-input");
-
-
-
-        searchBar.addEventListener("keyup", function (e) {
-            const input = e.target.value.toLowerCase();
-            const items = gallery.querySelectorAll(".card-info-container");
-            const first = items.firstChild;
-            const cardArray = document.querySelectorAll(".card");
+    const searchBar = document.getElementById("search-input");
 
 
 
-            cardArray.forEach(function (cardArray) {
+    searchBar.addEventListener("keyup", function (e) {
+        const input = e.target.value.toLowerCase();
+        const items = gallery.querySelectorAll(".card-info-container");
+        const first = items.firstChild;
+        const cardArray = document.querySelectorAll(".card");
 
 
 
-                const nameRes = cardArray.querySelector("h3").textContent;
-                //console.log(nameRes);
-
-                if (nameRes.toLowerCase().indexOf(input) != -1) {
-
-                    cardArray.style.display = "flex";
-
-                }
-
-                else {
-
-                    cardArray.style.display = "none";
-
-                }
-
-            });
+        cardArray.forEach(function (cardArray) {
 
 
 
+            const nameRes = cardArray.querySelector("h3").textContent;
+            //console.log(nameRes);
+
+            if (nameRes.toLowerCase().indexOf(input) != -1) {
+
+                cardArray.style.display = "flex";
+
+            }
+
+            else {
+
+                cardArray.style.display = "none";
+
+            }
 
         });
 
-       
 
-    }
+
+
+    });
+
+
+
+}
 
 
 
 getProfiles(fetchURL);
-
-
-
-
-
-
-
-
 
