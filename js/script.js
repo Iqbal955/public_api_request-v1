@@ -179,7 +179,15 @@ function createmodal(data, i) {
 
 function modalEvents(data) {
     for (let i = 0, len = data.length; i < len; i++) { //loops through all cards
-        gallery.querySelectorAll('.card')[i].onclick = function () { //for each card a event listener is added
+        const galleryonclick = gallery.querySelectorAll('.card')[i];
+      
+   
+        galleryonclick.onclick = function () {
+            var index = galleryonclick;
+            console.log([index + 1])
+            
+        
+            ///for each card a event listener is added
             createmodal(data, i) //when the card is clicked the createmodal get called (which is the function that creates the modal)
             nextprev(data, i); //the next and previous button event function is then called
             console.log(i);
@@ -196,7 +204,7 @@ function modalEvents(data) {
 
 function nextprev(data, i) {
 
-
+   /*
 
     console.log("in nextprev the i is" + i);
     
@@ -225,16 +233,22 @@ function nextprev(data, i) {
 
 
         }
-        return dataArr;
+        
     });
-    
+    return data;
     return i;
+
+*/
 
 }
 
+/*
+ * 
+ * 1.) Find the current modal window and what child element of gallery was selected, such as the 'nth element' (e.g: 0th child, 1th child, etc), using that to represent an index.
+2.)  With that 'index', use it to access the [index+1] and [index-1] objects in your data-array of employees.
+3.) Use those two new objects that you accessed to then create a modal window through your 'Next' and 'Previous' button onclick listeners.
 
-
-
+*/
 function searchBar() {
 
     const searchBar = document.getElementById("search-input");
