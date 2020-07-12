@@ -50,6 +50,7 @@ function cards(data) {
 
     for (let i = 0; i < data.length; i++) {
 
+        console.log(data);
 
         gallery = document.getElementById("gallery");
         card = document.createElement("div");
@@ -125,9 +126,11 @@ function createmodal(data, i) {
                 <h3 id="name" class="modal-name cap">${data[i].name.first} ${data[i].name.last}</h3>
                 <p class="modal-text">E-mail ${data[i].email}</p >
                 <p class="modal-text cap">City: ${data[i].location.city}</p>
+            
                 <hr>
                     <p class="modal-text">Phone Number ${data[i].cell}</p>
-                    <p class="modal-text">Adress:${data[i].location.street.name} ${data[i].location.street.number} ${data[i].location.postcode}.</p>
+                    <p class="modal-text">Adress:<br> ${data[i].location.street.name} ${data[i].location.street.number} <br> ${data[i].location.postcode} <br> ${data[i].location.city} <br> ${data[i].location.country}</p>
+                    <p class="modal-text">Birthday: ${data[i].dob.date.substr(0, 10).replace(/-/g, "/")}</p>
                     <p class="modal-text">Age: ${data[i].dob.age}</p>`;
 
 
